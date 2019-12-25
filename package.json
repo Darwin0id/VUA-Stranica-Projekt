@@ -1,0 +1,50 @@
+{
+  "name": "visoko-uciliste-algebra-stranica",
+  "version": "1.0.0",
+  "description": "Projekt za SUPIT",
+  "main": "javascript/main.js",
+  "scripts": {
+    "build": "browserify javascript/main.js -o app/resources/js/app.js",
+    "watch": "watchify javascript/main.js -o app/resources/js/app.js -v"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Darwin0id/VUA_SUPIT_Project.git"
+  },
+  "keywords": [
+    "SUPIT",
+    "Projekt",
+    "Javascript"
+  ],
+  "author": "Matija Kolarić",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Darwin0id/VUA_SUPIT_Project/issues"
+  },
+  "homepage": "https://github.com/Darwin0id/VUA_SUPIT_Project#readme",
+  "dependencies": {
+    "browserify": "^16.2.2",
+    "jquery": "^3.4.1",
+    "navigo": "^7.1.2",
+    "reading-time": "^1.1.3",
+    "sweetalert2": "^9.5.3",
+    "watchify": "^3.11.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0"
+  }
+}
