@@ -2,10 +2,10 @@
   "name": "visoko-uciliste-algebra-stranica",
   "version": "1.0.0",
   "description": "Projekt za SUPIT",
-  "main": "javascript/main.js",
+  "main": "src/main.js",
   "scripts": {
-    "build": "browserify javascript/main.js -o app/resources/js/app.js",
-    "watch": "watchify javascript/main.js -o app/resources/js/app.js -v"
+    "build": "browserify src/main.js -o app/resources/js/app.js",
+    "watch": "watchify src/main.js -o app/resources/js/app.js -v"
   },
   "browserify": {
     "transform": [
