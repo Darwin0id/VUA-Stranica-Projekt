@@ -234,6 +234,14 @@ img {
   box-shadow: 0 0 30px 0 rgba(195, 14, 96, 0.4);
 }
 
+.bg-zaiskri {
+  background: #000 url(../images/zaiskri-bg.jpg) no-repeat;
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:top;
+  border-top: 3px solid black;
+}
+
 .bg-transparent {
   background-color: transparent
 }
@@ -777,6 +785,13 @@ img {
 
 .block {
   display: block
+}
+
+.algebra-block {
+  display: inline-block;
+  transform: rotateZ(-1.4deg);
+  background-color: #fff;
+  width: 215px;
 }
 
 .inline-block {
@@ -1407,6 +1422,16 @@ img {
 .py-24 {
   padding-top: 6rem;
   padding-bottom: 6rem
+}
+
+.py-26 {
+  padding-top: 8rem;
+  padding-bottom: 8rem
+}
+
+.py-28 {
+  padding-top: 10rem;
+  padding-bottom: 10rem
 }
 
 .pt-0 {
@@ -2185,6 +2210,10 @@ img {
   overflow-wrap: break-word
 }
 
+.btn-pd-social {
+  padding: 10px 12px;
+}
+
 .w-5 {
   width: 1.25rem
 }
@@ -2582,4 +2611,19 @@ img {
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+}
+
+/* MOBILE */
+@media only screen and (max-width: 768px) {
+  .text-5xl {
+    font-size: 2rem;
+  }
+  
+  .text-lg {
+    font-size: 1.1rem;
+  }
+  .algebra\:links {
+    padding: 0;
+    margin-top: 3rem;
+  }
 }

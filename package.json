@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "build": "browserify src/main.js -o app/resources/js/app.js",
-    "watch": "watchify src/main.js -o app/resources/js/app.js -v"
+    "watch": "watchify src/main.js -o app/resources/js/app.js -v",
+    "server": "http-server ./app -p 9000"
   },
   "browserify": {
     "transform": [
@@ -38,6 +39,7 @@
     "browserify": "^16.2.2",
     "jquery": "^3.4.1",
     "navigo": "^7.1.2",
+    "tippy.js": "^5.1.2",
     "typewriter-effect": "^2.12.2",
     "watchify": "^3.11.1"
   },
