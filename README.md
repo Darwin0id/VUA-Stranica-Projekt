@@ -11,7 +11,7 @@ Projektni zadatak nalaže da se kreira internetska stranica koja prezentira Viso
 - [ ] Kreirati dokumentaciju
 
 ### GLOBAL
-- [X] Izbornik traka (Početna stranica, O nama, Novosti, Nastavni plan) `imati na umu da je traka position: fixed`
+- [X] Izbornik traka (Početna stranica, O nama, Novosti, Nastavni plan) **imati na umu da je traka position: fixed**
 - [X] Kreirati jednostavan footer
 - [X] Dodati Animte.css i napisati skriptu za primjenu na vidljive elemente tijekom scroll-a
 - [X] Dodati gradiente koje koristi Algebra
