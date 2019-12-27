@@ -4,7 +4,7 @@ export default class RenderService {
         this.id = id;
     }
 
-    HTML() {
-        $('#'+this.id).load(this.url);
+    HTML(fCallback = false) {
+        $('#'+this.id).load(this.url, fCallback);
     }
 }
