@@ -5,20 +5,22 @@ Projektni zadatak nalaže da se kreira internetska stranica koja prezentira Viso
 ## Zadaci
 
 ### ROOT
-␣- [X] Kreirati strukturu foldera
-␣- [X] Podesiti: browserify, jquery, navigo, typewriter, tippy, watchify, babel, babelify
-␣- [X] Kreirati router (Početna stranica, O nama, Novosti, Nastavni plan)
+- [X] Kreirati strukturu foldera
+- [X] Podesiti: browserify, jquery, navigo, typewriter, tippy, watchify, babel, babelify
+- [X] Kreirati router (Početna stranica, O nama, Novosti, Nastavni plan)
+- [ ] Kreirati dokumentaciju
 
 ### GLOBAL
-␣- [X] Izbornik traka (Početna stranica, O nama, Novosti, Nastavni plan) `imati na umu da je traka position: fixed`
-␣- [X] Dodati Animte.css i primjeniti na elemente
-␣- [X] Dodati gradiente koje koristi Algebra
-␣- [X] Dodati novosti u JSON
-␣- [X] Kreirati prikaz novosti na footer-u
+- [X] Izbornik traka (Početna stranica, O nama, Novosti, Nastavni plan) `imati na umu da je traka position: fixed`
+- [X] Kreirati jednostavan footer
+- [X] Dodati Animte.css i napisati skriptu za primjenu na vidljive elemente tijekom scroll-a
+- [X] Dodati gradiente koje koristi Algebra
+- [X] Dodati novosti u JSON
+- [X] Kreirati prikaz novosti na footer-u
 
 ### NASLOVNA STRANICA
-␣- [X] Dodati video
-␣- [X] Dodati efekt pisanja na naslovnu
-␣- [X] Dodati basic opise o Algebri
-␣- [X] Kreirati jednostavan footer
-- [ ] Kreirati dokumentaciju
+- [X] Dodati video
+- [X] Dodati efekt pisanja na naslovnu
+- [X] Dodati basic opise o Algebri
+- [X] Dodati efekte animate.css
+
