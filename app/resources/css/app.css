@@ -2137,6 +2137,10 @@ img {
   color: #d53f8c
 }
 
+.text-smaller {
+  font-size: .55rem
+}
+
 .text-xs {
   font-size: .75rem
 }
@@ -2179,6 +2183,12 @@ img {
 
 .text-algebra\:color {
   background: -webkit-linear-gradient(#c40f61, #e27210);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-pink\:color {
+  background: -webkit-linear-gradient(#ff0074, #c11a67);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

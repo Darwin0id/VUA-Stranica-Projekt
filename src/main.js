@@ -1,14 +1,20 @@
 //IMPORT
 import RenderController from './controller/render.controller';
+import NewsController from './controller/news.controller';
+import NotFoundController from './controller/pagenotfound.controller';
 
 //VIEW
 import FixedHeader from './view/header';
 import FooterNews from './view/footer';
 import Home from './view/home';
 import {About, RemoveSubMenu} from './view/about';
+import News from './view/news';
 
 //REQUIRE
 let Navigo = require('navigo');
+
+//NEWS
+var arrayOfNews = new NewsController().loadArray();
 
 //JQUERY ON LOAD
 $(function(){   
@@ -20,9 +26,9 @@ $(function(){
     //UČITAJ PRIJE SVEGA
     router.hooks({
         before: function(done, params) { 
+            $("html, body").animate({ scrollTop: 0 }, "slow");
             new RenderController('./templates/header.html', 'header').HTML(FixedHeader);
             new RenderController('./templates/footer.html', 'footer').HTML(FooterNews);
-            $("html, body").animate({ scrollTop: 0 }, "slow");
             done(); 
         }
     });
@@ -30,7 +36,8 @@ $(function(){
     //DOSTUPNE RUTE
     router.on('/home',function () {new RenderController('./templates/home.html', 'app').HTML(Home)});
     router.on('/about', function () {new RenderController('./templates/about.html', 'app').HTML(About)}, {leave: function (params) {RemoveSubMenu();}});
-    router.on('/news',function () {new RenderController('./templates/news.html', 'app').HTML()});
+    router.on('/news',function () {new RenderController('./templates/news.html', 'app').HTML(News)});
+    router.on('/news/:id', function (params) {(arrayOfNews.includes(parseInt(params.id))) ? new RenderController('./templates/news-section.html', 'app').NEWS(parseInt(params.id)) : NotFoundController()});
     router.on('/curriculum',function () {new RenderController('./templates/curriculum.html', 'app').HTML()});
     router.on('/contact',function () {new RenderController('./templates/contact.html', 'app').HTML()});
 
@@ -39,7 +46,7 @@ $(function(){
     router.on(() => { new RenderController('./templates/home.html', 'app').HTML(Home); });
 
     //404 RUTA
-    router.notFound((query) => { new RenderController('./templates/error.html', 'app').HTML();  });
+    router.notFound((query) => { NotFoundController(); });
 
     //POKRENI
     router.resolve();

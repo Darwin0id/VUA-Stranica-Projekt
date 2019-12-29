@@ -5472,6 +5472,13 @@ var NavbarController = function () {
         value: function toggleNavbarClick() {
             $("#" + this.elementID).toggle("hidden");
         }
+    }, {
+        key: "setActivePage",
+        value: function setActivePage(page) {
+            //AKTIVAN DIO STRANICE
+            $(".navbar-link").removeClass('text-pink:color');
+            $('a[href$="' + page + '"]').addClass('text-pink:color');
+        }
     }]);
 
     return NavbarController;
@@ -5504,11 +5511,28 @@ var NewsController = function () {
     }
 
     _createClass(NewsController, [{
+        key: 'loadArray',
+        value: function loadArray() {
+            return this.newSvc.getAllNews().map(function (news) {
+                return news.id;
+            });
+        }
+    }, {
         key: 'loadAllNewsBasic',
         value: function loadAllNewsBasic() {
-            return this.newSvc.getAllNews().responseJSON.map(function (news) {
+            return this.newSvc.getAllNews().map(function (news) {
                 return { id: news.id, naslov: news.naslov };
             });
+        }
+    }, {
+        key: 'loadAllNews',
+        value: function loadAllNews() {
+            return this.newSvc.getAllNews();
+        }
+    }, {
+        key: 'loadSpecificNews',
+        value: function loadSpecificNews(id) {
+            return this.newSvc.getNews(id);
         }
     }]);
 
@@ -5517,7 +5541,7 @@ var NewsController = function () {
 
 exports.default = NewsController;
 
-},{"../service/news.service":13}],10:[function(require,module,exports){
+},{"../service/news.service":14}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5555,7 +5579,30 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+exports.default = function () {
+    new _render2.default('../templates/error.html', 'app').HTML();
+};
+
+var _render = require('../controller/render.controller');
+
+var _render2 = _interopRequireDefault(_render);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+},{"../controller/render.controller":12}],12:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _news = require('../controller/news.controller');
+
+var _news2 = _interopRequireDefault(_news);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5574,6 +5621,26 @@ var RenderService = function () {
 
             $('#' + this.id).load(this.url, fCallback);
         }
+    }, {
+        key: 'NEWS',
+        value: function NEWS(id) {
+            var news = new _news2.default().loadSpecificNews(id);
+
+            $('#' + this.id).load(this.url, function () {
+                $("#newsBgCover").css({ "background-image": "url(resources/images/novosti/" + news.slika + ")" });
+                $("#news-title").html(news.naslov);
+                $("#news-date").html(news.datum);
+                $("#news-text").html(news.tekst);
+
+                news.slike.forEach(function (element) {
+                    $("#appendImages").append('<div class="w-full lg:w-4/12 px-4">\n                <a href="resources/images/novosti/' + element + '" data-fancybox="images">\n                    <img src="resources/images/novosti/' + element + '" />\n                </a>\n            </div>');
+                });
+
+                news.video.forEach(function (element) {
+                    $("#appendImages").append('<div class="w-full lg:w-4/12 px-4">\n                <video style="width: 100%; height: 100%;" controls>\n                    <source src="resources/video/' + element + '" type="video/mp4">\n                </video>\n            </div>');
+                });
+            });
+        }
     }]);
 
     return RenderService;
@@ -5581,12 +5648,20 @@ var RenderService = function () {
 
 exports.default = RenderService;
 
-},{}],12:[function(require,module,exports){
+},{"../controller/news.controller":9}],13:[function(require,module,exports){
 'use strict';
 
 var _render = require('./controller/render.controller');
 
 var _render2 = _interopRequireDefault(_render);
+
+var _news = require('./controller/news.controller');
+
+var _news2 = _interopRequireDefault(_news);
+
+var _pagenotfound = require('./controller/pagenotfound.controller');
+
+var _pagenotfound2 = _interopRequireDefault(_pagenotfound);
 
 var _header = require('./view/header');
 
@@ -5602,16 +5677,23 @@ var _home2 = _interopRequireDefault(_home);
 
 var _about = require('./view/about');
 
+var _news3 = require('./view/news');
+
+var _news4 = _interopRequireDefault(_news3);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //REQUIRE
+//IMPORT
+var Navigo = require('navigo');
+
+//NEWS
 
 
 //VIEW
-var Navigo = require('navigo');
+var arrayOfNews = new _news2.default().loadArray();
 
 //JQUERY ON LOAD
-//IMPORT
 $(function () {
     /* +++++++++ RUTIRANJE +++++++++ */
 
@@ -5621,9 +5703,9 @@ $(function () {
     //UČITAJ PRIJE SVEGA
     router.hooks({
         before: function before(done, params) {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
             new _render2.default('./templates/header.html', 'header').HTML(_header2.default);
             new _render2.default('./templates/footer.html', 'footer').HTML(_footer2.default);
-            $("html, body").animate({ scrollTop: 0 }, "slow");
             done();
         }
     });
@@ -5638,7 +5720,10 @@ $(function () {
             (0, _about.RemoveSubMenu)();
         } });
     router.on('/news', function () {
-        new _render2.default('./templates/news.html', 'app').HTML();
+        new _render2.default('./templates/news.html', 'app').HTML(_news4.default);
+    });
+    router.on('/news/:id', function (params) {
+        arrayOfNews.includes(parseInt(params.id)) ? new _render2.default('./templates/news-section.html', 'app').NEWS(parseInt(params.id)) : (0, _pagenotfound2.default)();
     });
     router.on('/curriculum', function () {
         new _render2.default('./templates/curriculum.html', 'app').HTML();
@@ -5654,7 +5739,7 @@ $(function () {
 
     //404 RUTA
     router.notFound(function (query) {
-        new _render2.default('./templates/error.html', 'app').HTML();
+        (0, _pagenotfound2.default)();
     });
 
     //POKRENI
@@ -5662,7 +5747,7 @@ $(function () {
     /* +++++++++ ++++++++++ +++++++++ */
 });
 
-},{"./controller/render.controller":11,"./view/about":14,"./view/footer":15,"./view/header":16,"./view/home":17,"navigo":1}],13:[function(require,module,exports){
+},{"./controller/news.controller":9,"./controller/pagenotfound.controller":11,"./controller/render.controller":12,"./view/about":15,"./view/footer":16,"./view/header":17,"./view/home":18,"./view/news":19,"navigo":1}],14:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5681,12 +5766,26 @@ var NewsService = function () {
     _createClass(NewsService, [{
         key: "getAllNews",
         value: function getAllNews() {
-            return $.ajax({
+            var response = $.ajax({
                 type: "GET",
                 dataType: "json",
                 async: false,
                 url: "./resources/data/news.json"
             });
+
+            return response.responseJSON;
+        }
+    }, {
+        key: "getNews",
+        value: function getNews(id) {
+            var response = $.ajax({
+                type: "GET",
+                dataType: "json",
+                async: false,
+                url: "./resources/data/news.json"
+            });
+
+            return response.responseJSON[id - 1];
         }
     }]);
 
@@ -5695,7 +5794,7 @@ var NewsService = function () {
 
 exports.default = NewsService;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5763,7 +5862,7 @@ function RemoveSubMenu() {
 }
 //--//
 
-},{"../controller/inviewport.controller":7,"../controller/onscrollanimation.controller":10,"./sub-menu":18}],15:[function(require,module,exports){
+},{"../controller/inviewport.controller":7,"../controller/onscrollanimation.controller":10,"./sub-menu":20}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5812,7 +5911,7 @@ var _tippy2 = _interopRequireDefault(_tippy);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../controller/news.controller":9,"tippy.js":5}],16:[function(require,module,exports){
+},{"../controller/news.controller":9,"tippy.js":5}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5839,6 +5938,11 @@ exports.default = function () {
         return navbar.toggleNavbarClick();
     });
     //--//
+
+    //AKTIVAN PAGE
+    var activePage = window.location.href.split('/');
+    navbar.setActivePage(activePage[activePage.indexOf('#!') + 1]);
+    //--//
 };
 
 var _navbar = require('../controller/navbar.controller');
@@ -5847,7 +5951,7 @@ var _navbar2 = _interopRequireDefault(_navbar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../controller/navbar.controller":8}],17:[function(require,module,exports){
+},{"../controller/navbar.controller":8}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5884,7 +5988,34 @@ var _onscrollanimation2 = _interopRequireDefault(_onscrollanimation);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../controller/onscrollanimation.controller":10,"typewriter-effect/dist/core":6}],18:[function(require,module,exports){
+},{"../controller/onscrollanimation.controller":10,"typewriter-effect/dist/core":6}],19:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function () {
+    //DOHVATI NOVOSTI
+    var news = new _news2.default();
+    var arrayOfNews = news.loadAllNews();
+    //--//
+
+    //APPENDAJ NOVOSTI
+    arrayOfNews.forEach(function (news) {
+        console.log(news);
+        $("#appendNews").append("\n        <div class=\"w-full lg:w-4/12 px-4\">\n            <a href=\"#!/news/" + news.id + "\">\n                <div class=\"hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full shadow-lg rounded-lg\" style=\"transition: all 0.15s ease 0s;\">\n                    <img alt=\"" + news.naslov + "\" class=\"align-middle border-none max-w-full h-auto rounded-lg\" src=\"resources/images/novosti/novost" + news.id + ".jpg\">\n                </div>\n            </a>\n            <span class=\"text-smaller inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2 mb-2\">" + news.datum + "</span>\n            <h5 class=\"text-base pb-4 text-white\">" + news.naslov + "</h5>\n       </div>\n       ");
+    });
+    //--//
+};
+
+var _news = require("../controller/news.controller");
+
+var _news2 = _interopRequireDefault(_news);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+},{"../controller/news.controller":9}],20:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5921,4 +6052,4 @@ var nase_vrijednosti = {
 };sub_menu.push(nase_vrijednosti, povijest, algebra_grupa, kako_do_nas);
 exports.default = sub_menu;
 
-},{}]},{},[12]);
+},{}]},{},[13]);

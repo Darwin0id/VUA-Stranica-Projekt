@@ -4,7 +4,7 @@ import AnimtionOnScroll from '../controller/onscrollanimation.controller';
 
 //MAIN - FUNKCIJA
 export default function()
-{    
+{   
     //UZMI ELEMENT PO ID-u
     let appContainer =  document.getElementById('text-story'); 
     //--//

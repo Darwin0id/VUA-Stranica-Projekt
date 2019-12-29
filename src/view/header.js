@@ -16,7 +16,12 @@ export default function()
 
     //TOGGLE FUNKCIJA
     let navbarID = "algebraNavbar";
-    var navbar = new NavbarController("collapse-navbar");
+    let navbar = new NavbarController("collapse-navbar");
     $(document).on("click", "#"+navbarID, () => navbar.toggleNavbarClick());
+    //--//
+
+    //AKTIVAN PAGE
+    let activePage = (window.location.href).split('/');
+    navbar.setActivePage(activePage[(activePage.indexOf('#!')+1)])
     //--//
 }
