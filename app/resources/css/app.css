@@ -234,8 +234,20 @@ img {
   box-shadow: 0 0 30px 0 rgba(195, 14, 96, 0.4);
 }
 
+.bg-algebra-pink {
+  background-color: #c40f61;
+  -webkit-box-shadow: 0 0 30px 0 rgba(195, 14, 96, 0.4);
+  box-shadow: 0 0 30px 0 rgba(195, 14, 96, 0.4);
+}
+
+.bg-algebra-orange {
+  background-color: #e27210;
+  -webkit-box-shadow: 0 0 30px 0 rgba(195, 14, 96, 0.4);
+  box-shadow: 0 0 30px 0 rgba(195, 14, 96, 0.4);
+}
+
 .bg-zaiskri {
-  background: #000 url(../images/zaiskri-bg.jpg) no-repeat;
+  background: #000 url(../images/promo/zaiskri-bg.jpg) no-repeat;
   background-repeat:no-repeat;
   background-size:cover;
   background-position:top;
@@ -1861,6 +1873,10 @@ img {
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1), 0 10px 10px -5px rgba(0, 0, 0, .04)
 }
 
+.shadow-xl-algebra {
+  box-shadow: 0 20px 25px -5px rgb(250, 189, 209), 0 10px 10px -5px rgba(0, 0, 0, .04)
+}
+
 .shadow-2xl {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .25)
 }
@@ -2611,6 +2627,93 @@ img {
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+}
+
+.cardTitle {
+  display: none;
+}
+
+.cardChoose > h3 {
+  line-height: 2rem;
+  position: relative;
+  bottom: 2px;
+  left: 2px;
+}
+
+.cardChoose:hover {
+  width: 250px;
+  border-top: 2px solid #c40f61;
+  border-left: 2px solid #c40f61;
+  border-bottom: 2px solid #c40f61;
+  z-index: 999999;
+}
+
+.cardChoose:hover .cardTitle {
+  display: inline-block;
+}
+
+.cardChoose {
+  cursor: pointer;
+  position: fixed;
+  z-index: 999999;
+  width: 70px;
+  border-radius: 0;
+  height: 80px;
+  border-top: 2px solid #c40f61;
+  border-left: 2px solid #c40f61;
+  border-bottom: 2px solid #c40f61;
+  z-index: 999999;
+  font-size: .875rem;
+  transition: all .15s ease;
+  letter-spacing: .025em;
+  will-change: transform;
+  color: #c40f61;
+  background-color: #f7fafc;
+  box-shadow: 0 4px 6px rgba(196, 15, 27, .11), 0 1px 3px rgba(0, 0, 0, .08);
+  font-weight: 700;
+  line-height: 2.5;
+  display: inline-block;
+  padding: 1.425rem 1.25rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.activeCard {
+  background-image: linear-gradient(283deg, #e27210, #c40f61);
+  border-top: 2px solid #c40f61;
+  border-left: 2px solid #c40f61;
+  border-bottom: 2px solid #c40f61;
+  color: #fff;
+}
+
+.card-1 {
+  right: 0;
+  top: 36%;
+}
+
+.card-2 {
+  right: 0;
+  top: 46%;
+}
+
+.card-3 {
+  right: 0;
+  top: 56%;
+}
+
+.card-4 {
+  right: 0;
+  top: 66%;
+}
+
+.card-5 {
+  right: 8px;
+  top: 76%;
 }
 
 /* MOBILE */

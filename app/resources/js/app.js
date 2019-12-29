@@ -5428,6 +5428,30 @@ exports.sticky = sticky;
 },{}],7:[function(require,module,exports){
 "use strict";
 
+//FUNKCIJA PROVJERE JE LI NEŠTO U VIEWPORT-u
+$.fn.isInViewport = function () {
+
+    //PROVJERA POSTOJI LI UOPĆE OFFSET ZA TRAŽENI ELEMENT
+    var thisTop = ($(this).offset() || { "top": NaN }).top;
+
+    //AKO NE POSTOJI UBIJ FUNKCIJU
+    if (isNaN(thisTop)) return;
+
+    //UZMI OFFSET ZA TOP OD TRENUTNOG ELEMENTA U VIEWPORTU
+    var elementTop = thisTop;
+    var elementBottom = elementTop + $(this).outerHeight();
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+
+    //VRATI VRIJEDNOST ZA TRAŽENE PARAMETRE
+    //return elementBottom < viewportBottom && elementTop > viewportTop; -> https://stackoverflow.com/questions/20791374/jquery-check-if-element-is-visible-in-viewport
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+//--//
+
+},{}],8:[function(require,module,exports){
+"use strict";
+
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -5455,7 +5479,7 @@ var NavbarController = function () {
 
 exports.default = NavbarController;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5493,7 +5517,38 @@ var NewsController = function () {
 
 exports.default = NewsController;
 
-},{"../service/news.service":11}],9:[function(require,module,exports){
+},{"../service/news.service":13}],10:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function () {
+    //PROĐI PO SVAKOM ELEMENTU
+    $('.aniview').each(function () {
+        //STAVI OPACITY NA 0
+        $(this).css('opacity', 0);
+    });
+    //--//
+
+    //U VRIJEME SCROLLA
+    $(window).on('resize scroll', function () {
+        //PROĐI PO SVAKOM ELEMENTU
+        $('.aniview').each(function () {
+            //AKO GA VIDIM
+            if ($(this).isInViewport()) {
+                $(this).css('opacity', 1); //DODAJ OPACITY 1
+                $(this).addClass('animated ' + $(this).attr('data-av-animation')); //DODAJ ANIMACIJU
+            }
+            //--//
+        });
+        //--//
+    });
+    //--//
+};
+
+},{}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5526,7 +5581,7 @@ var RenderService = function () {
 
 exports.default = RenderService;
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 var _render = require('./controller/render.controller');
@@ -5545,16 +5600,18 @@ var _home = require('./view/home');
 
 var _home2 = _interopRequireDefault(_home);
 
+var _about = require('./view/about');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //REQUIRE
-//IMPORT
-var Navigo = require('navigo');
-
-//JQUERY ON LOAD
 
 
 //VIEW
+var Navigo = require('navigo');
+
+//JQUERY ON LOAD
+//IMPORT
 $(function () {
     /* +++++++++ RUTIRANJE +++++++++ */
 
@@ -5566,27 +5623,28 @@ $(function () {
         before: function before(done, params) {
             new _render2.default('./templates/header.html', 'header').HTML(_header2.default);
             new _render2.default('./templates/footer.html', 'footer').HTML(_footer2.default);
+            $("html, body").animate({ scrollTop: 0 }, "slow");
             done();
         }
     });
 
     //DOSTUPNE RUTE
-    router.on({
-        '/home': function home() {
-            new _render2.default('./templates/home.html', 'app').HTML(_home2.default);
-        },
-        '/about': function about() {
-            new _render2.default('./templates/about.html', 'app').HTML();
-        },
-        '/news': function news() {
-            new _render2.default('./templates/news.html', 'app').HTML();
-        },
-        '/curriculum': function curriculum() {
-            new _render2.default('./templates/curriculum.html', 'app').HTML();
-        },
-        '/contact': function contact() {
-            new _render2.default('./templates/contact.html', 'app').HTML();
-        }
+    router.on('/home', function () {
+        new _render2.default('./templates/home.html', 'app').HTML(_home2.default);
+    });
+    router.on('/about', function () {
+        new _render2.default('./templates/about.html', 'app').HTML(_about.About);
+    }, { leave: function leave(params) {
+            (0, _about.RemoveSubMenu)();
+        } });
+    router.on('/news', function () {
+        new _render2.default('./templates/news.html', 'app').HTML();
+    });
+    router.on('/curriculum', function () {
+        new _render2.default('./templates/curriculum.html', 'app').HTML();
+    });
+    router.on('/contact', function () {
+        new _render2.default('./templates/contact.html', 'app').HTML();
     });
 
     //DEFAULT RUTA
@@ -5604,7 +5662,7 @@ $(function () {
     /* +++++++++ ++++++++++ +++++++++ */
 });
 
-},{"./controller/render.controller":9,"./view/footer":12,"./view/header":13,"./view/home":14,"navigo":1}],11:[function(require,module,exports){
+},{"./controller/render.controller":11,"./view/about":14,"./view/footer":15,"./view/header":16,"./view/home":17,"navigo":1}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5637,7 +5695,75 @@ var NewsService = function () {
 
 exports.default = NewsService;
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.About = About;
+exports.RemoveSubMenu = RemoveSubMenu;
+
+require('../controller/inviewport.controller');
+
+var _onscrollanimation = require('../controller/onscrollanimation.controller');
+
+var _onscrollanimation2 = _interopRequireDefault(_onscrollanimation);
+
+var _subMenu = require('./sub-menu');
+
+var _subMenu2 = _interopRequireDefault(_subMenu);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//MAIN - FUNKCIJA
+function About() {
+    //SCROLL FUNKCIJA
+    $(document).ready(function () {
+        $(".cardChoose").click(function () {
+            $('html, body').animate({
+                scrollTop: $("#" + $(this).attr("data-scroll")).offset().top - 155
+            }, 1500);
+        });
+    });
+    //--//
+
+    //VISIBLE FUNKCIJA (AKTIVNI DIO STRANICE)
+    $(window).on('resize scroll', function () {
+        $('.sub-section').each(function () {
+            if ($(this).isInViewport()) {
+                $('a[data-scroll="' + $(this).attr("id") + '"]').addClass("activeCard");
+            } else {
+                $('a[data-scroll="' + $(this).attr("id") + '"]').removeClass("activeCard");
+            }
+        });
+    });
+    //--//
+
+    //DODAJ PRIVREMENI HEADER
+    $("body").append('<div id="sub-menu" class="text-center"></div>');
+    //--//
+
+    //DODAJ KARTICE NA PRIVREMENI HEADER
+    _subMenu2.default.forEach(function (element, index) {
+        return $("#sub-menu").append('<a data-scroll="' + element.id + '" type="button" class="bg-white text-uppercase cardChoose card-' + (index + 1) + '"><h1 class="' + element.icon + ' text-2xl"></h1> <h3 class="cardTitle text-base">' + element.title + '</h3></a>');
+    });
+    //--//
+
+    //DODAJ ANIMACIJE NA SCROLL-u
+    (0, _onscrollanimation2.default)();
+    //--//
+}
+//--//
+
+//MAKNI MENI - FUNKCIJA
+//IMPORT
+function RemoveSubMenu() {
+    $("#sub-menu").remove();
+}
+//--//
+
+},{"../controller/inviewport.controller":7,"../controller/onscrollanimation.controller":10,"./sub-menu":18}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5652,7 +5778,7 @@ exports.default = function () {
 
   //APPENDAJ NOVOSTI
   arrayOfNews.forEach(function (news) {
-    $("#listOfNews").append('\n       <li>\n            <a data-tippy-content="' + news.naslov + '" class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm news-footer" href="#!/news/' + news.id + '" data-navigo>' + news.naslov.substring(0, 18) + (news.naslov.length > 18 ? "..." : "") + '</a>\n\t\t</li>\n       ');
+    $("#listOfNews").append('\n       <li>\n            <a data-tippy-content="' + news.naslov + '" class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm news-footer" href="#!/news/' + news.id + '" data-navigo>' + news.naslov.substring(0, 18) + (news.naslov.length > 18 ? "..." : "") + '</a>\n\t\t   </li>\n       ');
   });
   //--//
 
@@ -5686,7 +5812,7 @@ var _tippy2 = _interopRequireDefault(_tippy);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../controller/news.controller":8,"tippy.js":5}],13:[function(require,module,exports){
+},{"../controller/news.controller":9,"tippy.js":5}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5721,7 +5847,7 @@ var _navbar2 = _interopRequireDefault(_navbar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../controller/navbar.controller":7}],14:[function(require,module,exports){
+},{"../controller/navbar.controller":8}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5729,21 +5855,70 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function () {
+    //UZMI ELEMENT PO ID-u
     var appContainer = document.getElementById('text-story');
+    //--//
 
+    //ANIMACIJA PISANJA - POSTAVKE
     var typewriter = new _core2.default(appContainer, {
         loop: false
     });
+    //--//
 
+    //ANIMACIJA PISANJA - PRIMJENA
     typewriter.pauseFor(600).typeString('Budi izvrstan u onom što vidiš!').pauseFor(300).deleteChars(6).typeString('voliš.').pauseFor(300).typeString('</br> <span class="span-gradient">ZAISKRI</span>.').start();
+    //--//
 
-    $('.aniview').AniView({ animateThreshold: 100, scrollPollInterval: 20 });
+    //DODAJ ANIMACIJE NA SCROLL-u
+    (0, _onscrollanimation2.default)();
+    //--//
 };
 
 var _core = require('typewriter-effect/dist/core');
 
 var _core2 = _interopRequireDefault(_core);
 
+var _onscrollanimation = require('../controller/onscrollanimation.controller');
+
+var _onscrollanimation2 = _interopRequireDefault(_onscrollanimation);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"typewriter-effect/dist/core":6}]},{},[10]);
+},{"../controller/onscrollanimation.controller":10,"typewriter-effect/dist/core":6}],18:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//SUBMENI 
+var sub_menu = [];
+
+//NASE VRIJEDNOSTI -
+var nase_vrijednosti = {
+    id: "nase_vrijednosti",
+    title: "NAŠE VRIJEDNOSTI",
+    icon: "fas fa-trophy"
+
+    //POVIJEST -
+};var povijest = {
+    id: "povijest",
+    title: "POVIJEST",
+    icon: "fas fa-hourglass-start"
+
+    //ALGEBRA GRUPA -
+};var algebra_grupa = {
+    id: "algebra_grupa",
+    title: "ALGEBRA GRUPA",
+    icon: "fas fa-building"
+
+    //KAKO DO NAS -
+};var kako_do_nas = {
+    id: "kako_do_nas",
+    title: "KAKO DO NAS",
+    icon: "fas fa-map-marker-alt"
+
+    //DODAJ PODSTRANICE U ARRAY
+};sub_menu.push(nase_vrijednosti, povijest, algebra_grupa, kako_do_nas);
+exports.default = sub_menu;
+
+},{}]},{},[12]);
