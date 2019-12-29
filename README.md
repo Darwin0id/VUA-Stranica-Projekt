@@ -24,7 +24,7 @@ Projektni zadatak nalaže da se kreira internetska stranica koja prezentira Viso
 - [X] Dodati basic opise o Algebri
 - [X] Dodati efekte animate.css
 
-### O NSMS STRANICA
+### O NAMA STRANICA
 - [X] Dodati pod-menu
 - [X] Dodati sekcije: naše vrijednosti, povijest, algebra grupa, kako do nas
 - [X] Dodati google maps
