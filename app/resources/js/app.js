@@ -5426,6 +5426,47 @@ exports.sticky = sticky;
 },{"./tippy.chunk.cjs.js":4,"_process":3,"popper.js":2}],6:[function(require,module,exports){
 !function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define("Typewriter",[],t):"object"==typeof exports?exports.Typewriter=t():e.Typewriter=t()}("undefined"!=typeof self?self:this,(function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=1)}([function(e,t,n){(function(t){for(var r=n(3),o="undefined"==typeof window?t:window,a=["moz","webkit"],i="AnimationFrame",s=o["request"+i],u=o["cancel"+i]||o["cancelRequest"+i],l=0;!s&&l<a.length;l++)s=o[a[l]+"Request"+i],u=o[a[l]+"Cancel"+i]||o[a[l]+"CancelRequest"+i];if(!s||!u){var c=0,p=0,d=[];s=function(e){if(0===d.length){var t=r(),n=Math.max(0,1e3/60-(t-c));c=n+t,setTimeout((function(){var e=d.slice(0);d.length=0;for(var t=0;t<e.length;t++)if(!e[t].cancelled)try{e[t].callback(c)}catch(e){setTimeout((function(){throw e}),0)}}),Math.round(n))}return d.push({handle:++p,callback:e,cancelled:!1}),p},u=function(e){for(var t=0;t<d.length;t++)d[t].handle===e&&(d[t].cancelled=!0)}}e.exports=function(e){return s.call(o,e)},e.exports.cancel=function(){u.apply(o,arguments)},e.exports.polyfill=function(e){e||(e=o),e.requestAnimationFrame=s,e.cancelAnimationFrame=u}}).call(this,n(2))},function(e,t,n){"use strict";n.r(t);var r=n(0),o=n.n(r),a=function(e){return new RegExp(/<[a-z][\s\S]*>/i).test(e)},i=function(e){var t=document.createElement("div");return t.innerHTML=e,t.childNodes},s=function(e,t){return Math.floor(Math.random()*(t-e+1))+e},u=function(e){var t=document.createElement("style");t.appendChild(document.createTextNode(e)),document.head.appendChild(t)},l={TYPE_CHARACTER:"TYPE_CHARACTER",REMOVE_CHARACTER:"REMOVE_CHARACTER",REMOVE_ALL:"REMOVE_ALL",REMOVE_LAST_VISIBLE_NODE:"REMOVE_LAST_VISIBLE_NODE",PAUSE_FOR:"PAUSE_FOR",CALL_FUNCTION:"CALL_FUNCTION",ADD_HTML_TAG_ELEMENT:"ADD_HTML_TAG_ELEMENT",REMOVE_HTML_TAG_ELEMENT:"REMOVE_HTML_TAG_ELEMENT",CHANGE_DELETE_SPEED:"CHANGE_DELETE_SPEED",CHANGE_DELAY:"CHANGE_DELAY",CHANGE_CURSOR:"CHANGE_CURSOR"},c={HTML_TAG:"HTML_TAG",TEXT_NODE:"TEXT_NODE"};function p(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{},r=Object.keys(n);"function"==typeof Object.getOwnPropertySymbols&&(r=r.concat(Object.getOwnPropertySymbols(n).filter((function(e){return Object.getOwnPropertyDescriptor(n,e).enumerable})))),r.forEach((function(t){E(e,t,n[t])}))}return e}function d(e){return function(e){if(Array.isArray(e)){for(var t=0,n=new Array(e.length);t<e.length;t++)n[t]=e[t];return n}}(e)||function(e){if(Symbol.iterator in Object(e)||"[object Arguments]"===Object.prototype.toString.call(e))return Array.from(e)}(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance")}()}function f(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}function E(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}var v=function(){function e(t,n){var u=this;if(function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),E(this,"state",{cursorAnimation:null,lastFrameTime:null,pauseUntil:null,eventQueue:[],eventLoop:null,eventLoopPaused:!1,reverseCalledEvents:[],calledEvents:[],visibleNodes:[],initialOptions:null,elements:{container:null,wrapper:document.createElement("span"),cursor:document.createElement("span")}}),E(this,"options",{strings:null,cursor:"|",delay:"natural",deleteSpeed:"natural",loop:!1,autoStart:!1,devMode:!1,skipAddStyles:!1,wrapperClassName:"Typewriter__wrapper",cursorClassName:"Typewriter__cursor",stringSplitter:null}),E(this,"setupWrapperElement",(function(){u.state.elements.wrapper.className=u.options.wrapperClassName,u.state.elements.cursor.className=u.options.cursorClassName,u.state.elements.cursor.innerHTML=u.options.cursor,u.state.elements.container.innerHTML="",u.state.elements.container.appendChild(u.state.elements.wrapper),u.state.elements.container.appendChild(u.state.elements.cursor)})),E(this,"start",(function(){return u.state.eventLoopPaused=!1,u.runEventLoop(),u})),E(this,"pause",(function(){return u.state.eventLoopPaused=!0,u})),E(this,"stop",(function(){return u.state.eventLoop&&(Object(r.cancel)(u.state.eventLoop),u.state.eventLoop=null),u})),E(this,"pauseFor",(function(e){return u.addEventToQueue(l.PAUSE_FOR,{ms:e}),u})),E(this,"typeOutAllStrings",(function(){return"string"==typeof u.options.strings?(u.typeString(u.options.strings).pauseFor(1500),u):(u.options.strings.forEach((function(e){u.typeString(e).pauseFor(1500).deleteAll()})),u)})),E(this,"typeString",(function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;if(a(e))return u.typeOutHTMLString(e,t);if(e){var n=u.options||{},r=n.stringSplitter,o="function"==typeof r?r(e):e.split("");u.typeCharacters(o,t)}return u})),E(this,"typeOutHTMLString",(function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null,n=i(e);if(n.length>0)for(var r=0;r<n.length;r++){var o=n[r],a=o.innerHTML;o&&3!==o.nodeType?(o.innerHTML="",u.addEventToQueue(l.ADD_HTML_TAG_ELEMENT,{node:o,parentNode:t}),u.typeString(a,o)):o.textContent&&u.typeString(o.textContent,t)}return u})),E(this,"deleteAll",(function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"natural";return u.addEventToQueue(l.REMOVE_ALL,{speed:e}),u})),E(this,"changeDeleteSpeed",(function(e){if(!e)throw new Error("Must provide new delete speed");return u.addEventToQueue(l.CHANGE_DELETE_SPEED,{speed:e}),u})),E(this,"changeDelay",(function(e){if(!e)throw new Error("Must provide new delay");return u.addEventToQueue(l.CHANGE_DELAY,{delay:e}),u})),E(this,"changeCursor",(function(e){if(!e)throw new Error("Must provide new cursor");return u.addEventToQueue(l.CHANGE_CURSOR,{cursor:e}),u})),E(this,"deleteChars",(function(e){if(!e)throw new Error("Must provide amount of characters to delete");for(var t=0;t<e;t++)u.addEventToQueue(l.REMOVE_CHARACTER);return u})),E(this,"callFunction",(function(e,t){if(!e||"function"!=typeof e)throw new Error("Callbak must be a function");return u.addEventToQueue(l.CALL_FUNCTION,{cb:e,thisArg:t}),u})),E(this,"typeCharacters",(function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;if(!e||!Array.isArray(e))throw new Error("Characters must be an array");return e.forEach((function(e){u.addEventToQueue(l.TYPE_CHARACTER,{character:e,node:t})})),u})),E(this,"removeCharacters",(function(e){if(!e||!Array.isArray(e))throw new Error("Characters must be an array");return e.forEach((function(){u.addEventToQueue(l.REMOVE_CHARACTER)})),u})),E(this,"addEventToQueue",(function(e,t){var n=arguments.length>2&&void 0!==arguments[2]&&arguments[2];return u.addEventToStateProperty(e,t,n,"eventQueue")})),E(this,"addReverseCalledEvent",(function(e,t){var n=arguments.length>2&&void 0!==arguments[2]&&arguments[2],r=u.options.loop;return r?u.addEventToStateProperty(e,t,n,"reverseCalledEvents"):u})),E(this,"addEventToStateProperty",(function(e,t){var n=arguments.length>2&&void 0!==arguments[2]&&arguments[2],r=arguments.length>3?arguments[3]:void 0,o={eventName:e,eventArgs:t||{}};return u.state[r]=n?[o].concat(d(u.state[r])):[].concat(d(u.state[r]),[o]),u})),E(this,"runEventLoop",(function(){u.state.lastFrameTime||(u.state.lastFrameTime=Date.now());var e=Date.now(),t=e-u.state.lastFrameTime;if(!u.state.eventQueue.length){if(!u.options.loop)return;u.state.eventQueue=d(u.state.calledEvents),u.state.calledEvents=[],u.options=p({},u.state.initialOptions)}if(u.state.eventLoop=o()(u.runEventLoop),!u.state.eventLoopPaused){if(u.state.pauseUntil){if(e<u.state.pauseUntil)return;u.state.pauseUntil=null}var n=d(u.state.eventQueue),r=n.shift(),a=0;if(!(t<=(a=r.eventName===l.REMOVE_LAST_VISIBLE_NODE||r.eventName===l.REMOVE_CHARACTER?"natural"===u.options.deleteSpeed?s(40,80):u.options.deleteSpeed:"natural"===u.options.delay?s(120,160):u.options.delay))){var i=r.eventName,f=r.eventArgs;switch(u.logInDevMode({currentEvent:r,state:u.state,delay:a}),i){case l.TYPE_CHARACTER:var E=f.character,v=f.node,h=document.createTextNode(E);v?v.appendChild(h):u.state.elements.wrapper.appendChild(h),u.state.visibleNodes=[].concat(d(u.state.visibleNodes),[{type:c.TEXT_NODE,node:h}]);break;case l.REMOVE_CHARACTER:n.unshift({eventName:l.REMOVE_LAST_VISIBLE_NODE,eventArgs:{removingCharacterNode:!0}});break;case l.PAUSE_FOR:var m=r.eventArgs.ms;u.state.pauseUntil=Date.now()+parseInt(m);break;case l.CALL_FUNCTION:var T=r.eventArgs,_=T.cb,y=T.thisArg;_.call(y,{elements:u.state.elements});break;case l.ADD_HTML_TAG_ELEMENT:var A=r.eventArgs,g=A.node,w=A.parentNode;w?w.appendChild(g):u.state.elements.wrapper.appendChild(g),u.state.visibleNodes=[].concat(d(u.state.visibleNodes),[{type:c.HTML_TAG,node:g,parentNode:w||u.state.elements.wrapper}]);break;case l.REMOVE_ALL:var L=u.state.visibleNodes,C=f.speed,N=[];C&&N.push({eventName:l.CHANGE_DELETE_SPEED,eventArgs:{speed:C,temp:!0}});for(var b=0,O=L.length;b<O;b++)N.push({eventName:l.REMOVE_LAST_VISIBLE_NODE,eventArgs:{removingCharacterNode:!1}});C&&N.push({eventName:l.CHANGE_DELETE_SPEED,eventArgs:{speed:u.options.deleteSpeed,temp:!0}}),n.unshift.apply(n,N);break;case l.REMOVE_LAST_VISIBLE_NODE:var S=r.eventArgs.removingCharacterNode;if(u.state.visibleNodes.length){var R=u.state.visibleNodes.pop(),M=R.type,D=R.node;D.parentNode.removeChild(D),M===c.HTML_TAG&&S&&n.unshift({eventName:l.REMOVE_LAST_VISIBLE_NODE,eventArgs:{}})}break;case l.CHANGE_DELETE_SPEED:u.options.deleteSpeed=r.eventArgs.speed;break;case l.CHANGE_DELAY:u.options.delay=r.eventArgs.delay;break;case l.CHANGE_CURSOR:u.options.cursor=r.eventArgs.cursor,u.state.elements.cursor.innerHTML=r.eventArgs.cursor}u.options.loop&&(r.eventName===l.REMOVE_LAST_VISIBLE_NODE||r.eventArgs&&r.eventArgs.temp||(u.state.calledEvents=[].concat(d(u.state.calledEvents),[r]))),u.state.eventQueue=n,u.state.lastFrameTime=e}}})),!t)throw new Error("No container element was provided");if("string"==typeof t){var f=document.querySelector(t);if(!f)throw new Error("Could not find container element");this.state.elements.container=f}else this.state.elements.container=t;n&&(this.options=p({},this.options,n)),this.state.initialOptions=p({},this.options),this.init()}var t,n,v;return t=e,(n=[{key:"init",value:function(){this.setupWrapperElement(),this.addEventToQueue(l.CHANGE_CURSOR,{cursor:this.options.cursor},!0),this.addEventToQueue(l.REMOVE_ALL,null,!0),!window||window.___TYPEWRITER_JS_STYLES_ADDED___||this.options.skipAddStyles||(u(".Typewriter__cursor{-webkit-animation:Typewriter-cursor 1s infinite;animation:Typewriter-cursor 1s infinite;margin-left:1px}@-webkit-keyframes Typewriter-cursor{0%{opacity:0}50%{opacity:1}100%{opacity:0}}@keyframes Typewriter-cursor{0%{opacity:0}50%{opacity:1}100%{opacity:0}}"),window.___TYPEWRITER_JS_STYLES_ADDED___=!0),!0===this.options.autoStart&&this.options.strings&&this.typeOutAllStrings().start()}},{key:"logInDevMode",value:function(e){this.options.devMode&&console.log(e)}}])&&f(t.prototype,n),v&&f(t,v),e}();n.d(t,"default",(function(){return v}))},function(e,t){var n;n=function(){return this}();try{n=n||new Function("return this")()}catch(e){"object"==typeof window&&(n=window)}e.exports=n},function(e,t,n){(function(t){(function(){var n,r,o,a,i,s;"undefined"!=typeof performance&&null!==performance&&performance.now?e.exports=function(){return performance.now()}:null!=t&&t.hrtime?(e.exports=function(){return(n()-i)/1e6},r=t.hrtime,a=(n=function(){var e;return 1e9*(e=r())[0]+e[1]})(),s=1e9*t.uptime(),i=a-s):Date.now?(e.exports=function(){return Date.now()-o},o=Date.now()):(e.exports=function(){return(new Date).getTime()-o},o=(new Date).getTime())}).call(this)}).call(this,n(4))},function(e,t){var n,r,o=e.exports={};function a(){throw new Error("setTimeout has not been defined")}function i(){throw new Error("clearTimeout has not been defined")}function s(e){if(n===setTimeout)return setTimeout(e,0);if((n===a||!n)&&setTimeout)return n=setTimeout,setTimeout(e,0);try{return n(e,0)}catch(t){try{return n.call(null,e,0)}catch(t){return n.call(this,e,0)}}}!function(){try{n="function"==typeof setTimeout?setTimeout:a}catch(e){n=a}try{r="function"==typeof clearTimeout?clearTimeout:i}catch(e){r=i}}();var u,l=[],c=!1,p=-1;function d(){c&&u&&(c=!1,u.length?l=u.concat(l):p=-1,l.length&&f())}function f(){if(!c){var e=s(d);c=!0;for(var t=l.length;t;){for(u=l,l=[];++p<t;)u&&u[p].run();p=-1,t=l.length}u=null,c=!1,function(e){if(r===clearTimeout)return clearTimeout(e);if((r===i||!r)&&clearTimeout)return r=clearTimeout,clearTimeout(e);try{r(e)}catch(t){try{return r.call(null,e)}catch(t){return r.call(this,e)}}}(e)}}function E(e,t){this.fun=e,this.array=t}function v(){}o.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];l.push(new E(e,t)),1!==l.length||c||s(f)},E.prototype.run=function(){this.fun.apply(null,this.array)},o.title="browser",o.browser=!0,o.env={},o.argv=[],o.version="",o.versions={},o.on=v,o.addListener=v,o.once=v,o.off=v,o.removeListener=v,o.removeAllListeners=v,o.emit=v,o.prependListener=v,o.prependOnceListener=v,o.listeners=function(e){return[]},o.binding=function(e){throw new Error("process.binding is not supported")},o.cwd=function(){return"/"},o.chdir=function(e){throw new Error("process.chdir is not supported")},o.umask=function(){return 0}}]).default}));
 },{}],7:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _curriculum = require('../service/curriculum.service');
+
+var _curriculum2 = _interopRequireDefault(_curriculum);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CurriculumController = function () {
+    function CurriculumController() {
+        _classCallCheck(this, CurriculumController);
+
+        this.newSvc = new _curriculum2.default();
+    }
+
+    _createClass(CurriculumController, [{
+        key: 'loadAllCurriculums',
+        value: function loadAllCurriculums() {
+            return this.newSvc.getAllCurriculums();
+        }
+    }, {
+        key: 'loadSpecificCurriculum',
+        value: function loadSpecificCurriculum(id) {
+            return this.newSvc.getCurriculum(id);
+        }
+    }]);
+
+    return CurriculumController;
+}();
+
+exports.default = CurriculumController;
+
+},{"../service/curriculum.service":15}],8:[function(require,module,exports){
 "use strict";
 
 //FUNKCIJA PROVJERE JE LI NEŠTO U VIEWPORT-u
@@ -5449,7 +5490,7 @@ $.fn.isInViewport = function () {
 };
 //--//
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5486,7 +5527,7 @@ var NavbarController = function () {
 
 exports.default = NavbarController;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5541,7 +5582,7 @@ var NewsController = function () {
 
 exports.default = NewsController;
 
-},{"../service/news.service":14}],10:[function(require,module,exports){
+},{"../service/news.service":16}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5572,7 +5613,7 @@ exports.default = function () {
     //--//
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5589,7 +5630,7 @@ var _render2 = _interopRequireDefault(_render);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../controller/render.controller":12}],12:[function(require,module,exports){
+},{"../controller/render.controller":13}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5648,7 +5689,7 @@ var RenderService = function () {
 
 exports.default = RenderService;
 
-},{"../controller/news.controller":9}],13:[function(require,module,exports){
+},{"../controller/news.controller":10}],14:[function(require,module,exports){
 'use strict';
 
 var _render = require('./controller/render.controller');
@@ -5681,16 +5722,20 @@ var _news3 = require('./view/news');
 
 var _news4 = _interopRequireDefault(_news3);
 
+var _curriculum = require('./view/curriculum');
+
+var _curriculum2 = _interopRequireDefault(_curriculum);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //REQUIRE
-//IMPORT
-var Navigo = require('navigo');
-
-//NEWS
 
 
 //VIEW
+var Navigo = require('navigo');
+
+//NEWS
+//IMPORT
 var arrayOfNews = new _news2.default().loadArray();
 
 //JQUERY ON LOAD
@@ -5715,7 +5760,7 @@ $(function () {
         new _render2.default('./templates/home.html', 'app').HTML(_home2.default);
     });
     router.on('/about', function () {
-        new _render2.default('./templates/about.html', 'app').HTML(_about.About);
+        new _render2.default('./templates/about.html', 'app').HTML((0, _about.About)("test"));
     }, { leave: function leave(params) {
             (0, _about.RemoveSubMenu)();
         } });
@@ -5726,7 +5771,7 @@ $(function () {
         arrayOfNews.includes(parseInt(params.id)) ? new _render2.default('./templates/news-section.html', 'app').NEWS(parseInt(params.id)) : (0, _pagenotfound2.default)();
     });
     router.on('/curriculum', function () {
-        new _render2.default('./templates/curriculum.html', 'app').HTML();
+        new _render2.default('./templates/curriculum.html', 'app').HTML(_curriculum2.default);
     });
     router.on('/contact', function () {
         new _render2.default('./templates/contact.html', 'app').HTML();
@@ -5747,7 +5792,54 @@ $(function () {
     /* +++++++++ ++++++++++ +++++++++ */
 });
 
-},{"./controller/news.controller":9,"./controller/pagenotfound.controller":11,"./controller/render.controller":12,"./view/about":15,"./view/footer":16,"./view/header":17,"./view/home":18,"./view/news":19,"navigo":1}],14:[function(require,module,exports){
+},{"./controller/news.controller":10,"./controller/pagenotfound.controller":12,"./controller/render.controller":13,"./view/about":17,"./view/curriculum":18,"./view/footer":19,"./view/header":20,"./view/home":21,"./view/news":22,"navigo":1}],15:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CurriculumService = function () {
+    function CurriculumService() {
+        _classCallCheck(this, CurriculumService);
+    }
+
+    _createClass(CurriculumService, [{
+        key: "getAllCurriculums",
+        value: function getAllCurriculums() {
+            var response = $.ajax({
+                type: "GET",
+                dataType: "json",
+                async: false,
+                url: "http://www.fulek.com/VUA/SUPIT/GetNastavniPlan"
+            });
+
+            return response.responseJSON;
+        }
+    }, {
+        key: "getCurriculum",
+        value: function getCurriculum(id) {
+            var response = $.ajax({
+                type: "GET",
+                dataType: "json",
+                async: false,
+                url: "http://www.fulek.com/VUA/supit/GetKolegij/" + id
+            });
+
+            return response.responseJSON;
+        }
+    }]);
+
+    return CurriculumService;
+}();
+
+exports.default = CurriculumService;
+
+},{}],16:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5794,7 +5886,7 @@ var NewsService = function () {
 
 exports.default = NewsService;
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5862,7 +5954,61 @@ function RemoveSubMenu() {
 }
 //--//
 
-},{"../controller/inviewport.controller":7,"../controller/onscrollanimation.controller":10,"./sub-menu":20}],16:[function(require,module,exports){
+},{"../controller/inviewport.controller":8,"../controller/onscrollanimation.controller":11,"./sub-menu":23}],18:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function () {
+    $("#curriculum-table").hide();
+
+    //DOHVATI KOLEGIJE
+    var curriculum = new _curriculum2.default();
+    var arrayOfCurriculums = curriculum.loadAllCurriculums();
+    var totalECTS = 0;
+    var totalHours = 0;
+    //--//
+
+    //NA AUTO COMPLETE
+    $("#curriculum-search").autocomplete({
+        minLength: 0,
+        source: arrayOfCurriculums,
+        select: function select(event, ui) {
+            $('#curriculum-search').val(ui.item.label);
+            $('#curriculum-search').attr('data-id', ui.item.value);
+
+            var specificCurriculum = curriculum.loadSpecificCurriculum(parseInt(ui.item.value));
+            totalECTS += specificCurriculum.ects;
+            totalHours += specificCurriculum.sati;
+            $("#cTable-body").append("\n            <tr>\n                <td class=\"text-left\">" + specificCurriculum.kolegij + "</td>\n                <td class=\"text-left\">" + specificCurriculum.ects + "</td>\n                <td class=\"text-left\">" + specificCurriculum.sati + "</td>\n                <td class=\"text-left\">" + specificCurriculum.predavanja + "</td>\n                <td class=\"text-left\">" + specificCurriculum.vjezbe + "</td>\n                <td class=\"text-left\">" + specificCurriculum.tip + "</td>\n                <td class=\"text-left\">\n                <button class=\"bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1\" type=\"button\" style=\"transition: all .15s ease\">\n                Obri\u0161i\n                </button>\n              </td>\n            </tr>\n            ");
+
+            $("#totalECTS").html(totalECTS);
+            $("#totalHours").html(totalHours);
+
+            $("#curriculum-icon").hide();
+            $("#curriculum-table").show();
+
+            return false;
+        },
+        response: function response(event, ui) {
+            if (!ui.content.length) {
+                var noResult = { value: "", label: "Kolegij ne postoji u bazi!" };
+                ui.content.push(noResult);
+            }
+        }
+    });
+    //--//
+};
+
+var _curriculum = require("../controller/curriculum.controller");
+
+var _curriculum2 = _interopRequireDefault(_curriculum);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+},{"../controller/curriculum.controller":7}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5911,7 +6057,7 @@ var _tippy2 = _interopRequireDefault(_tippy);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../controller/news.controller":9,"tippy.js":5}],17:[function(require,module,exports){
+},{"../controller/news.controller":10,"tippy.js":5}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5951,7 +6097,7 @@ var _navbar2 = _interopRequireDefault(_navbar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../controller/navbar.controller":8}],18:[function(require,module,exports){
+},{"../controller/navbar.controller":9}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5988,7 +6134,7 @@ var _onscrollanimation2 = _interopRequireDefault(_onscrollanimation);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../controller/onscrollanimation.controller":10,"typewriter-effect/dist/core":6}],19:[function(require,module,exports){
+},{"../controller/onscrollanimation.controller":11,"typewriter-effect/dist/core":6}],22:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6004,7 +6150,7 @@ exports.default = function () {
     //APPENDAJ NOVOSTI
     arrayOfNews.forEach(function (news) {
         console.log(news);
-        $("#appendNews").append("\n        <div class=\"w-full lg:w-4/12 px-4\">\n            <a href=\"#!/news/" + news.id + "\">\n                <div class=\"hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full shadow-lg rounded-lg\" style=\"transition: all 0.15s ease 0s;\">\n                    <img alt=\"" + news.naslov + "\" class=\"align-middle border-none max-w-full h-auto rounded-lg\" src=\"resources/images/novosti/novost" + news.id + ".jpg\">\n                </div>\n            </a>\n            <span class=\"text-smaller inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2 mb-2\">" + news.datum + "</span>\n            <h5 class=\"text-base pb-4 text-white\">" + news.naslov + "</h5>\n       </div>\n       ");
+        $("#appendNews").append("\n        <div class=\"w-full lg:w-4/12 px-4 animated bounceIn delay-0.5s\">\n            <a href=\"#!/news/" + news.id + "\">\n                <div class=\"hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full shadow-lg rounded-lg\" style=\"transition: all 0.15s ease 0s;\">\n                    <img alt=\"" + news.naslov + "\" class=\"align-middle border-none max-w-full h-auto rounded-lg\" src=\"resources/images/novosti/novost" + news.id + ".jpg\">\n                </div>\n            </a>\n            <span class=\"text-smaller inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-white uppercase last:mr-0 mr-2 mt-2 mb-2\">" + news.datum + "</span>\n            <h5 class=\"text-base pb-4 text-white\">" + news.naslov + "</h5>\n       </div>\n       ");
     });
     //--//
 };
@@ -6015,7 +6161,7 @@ var _news2 = _interopRequireDefault(_news);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../controller/news.controller":9}],20:[function(require,module,exports){
+},{"../controller/news.controller":10}],23:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6052,4 +6198,4 @@ var nase_vrijednosti = {
 };sub_menu.push(nase_vrijednosti, povijest, algebra_grupa, kako_do_nas);
 exports.default = sub_menu;
 
-},{}]},{},[13]);
+},{}]},{},[14]);

@@ -12,7 +12,7 @@ export default function()
     arrayOfNews.forEach(function(news){
         console.log(news);
        $("#appendNews").append(`
-        <div class="w-full lg:w-4/12 px-4">
+        <div class="w-full lg:w-4/12 px-4 animated bounceIn delay-0.5s">
             <a href="#!/news/${news.id}">
                 <div class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full shadow-lg rounded-lg" style="transition: all 0.15s ease 0s;">
                     <img alt="${news.naslov}" class="align-middle border-none max-w-full h-auto rounded-lg" src="resources/images/novosti/novost${news.id}.jpg">

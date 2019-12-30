@@ -9,6 +9,7 @@ import FooterNews from './view/footer';
 import Home from './view/home';
 import {About, RemoveSubMenu} from './view/about';
 import News from './view/news';
+import Curriculum from './view/curriculum';
 
 //REQUIRE
 let Navigo = require('navigo');
@@ -35,10 +36,10 @@ $(function(){
 
     //DOSTUPNE RUTE
     router.on('/home',function () {new RenderController('./templates/home.html', 'app').HTML(Home)});
-    router.on('/about', function () {new RenderController('./templates/about.html', 'app').HTML(About)}, {leave: function (params) {RemoveSubMenu();}});
+    router.on('/about', function () {new RenderController('./templates/about.html', 'app').HTML(About("test"))}, {leave: function (params) {RemoveSubMenu();}});
     router.on('/news',function () {new RenderController('./templates/news.html', 'app').HTML(News)});
     router.on('/news/:id', function (params) {(arrayOfNews.includes(parseInt(params.id))) ? new RenderController('./templates/news-section.html', 'app').NEWS(parseInt(params.id)) : NotFoundController()});
-    router.on('/curriculum',function () {new RenderController('./templates/curriculum.html', 'app').HTML()});
+    router.on('/curriculum',function () {new RenderController('./templates/curriculum.html', 'app').HTML(Curriculum)});
     router.on('/contact',function () {new RenderController('./templates/contact.html', 'app').HTML()});
 
   
