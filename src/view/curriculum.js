@@ -8,8 +8,6 @@ export default function()
     //DOHVATI KOLEGIJE
     let curriculum = new CurriculumController();
     let arrayOfCurriculums = curriculum.loadAllCurriculums();
-    let totalECTS = 0;
-    let totalHours = 0;
     //--//
 
     //NA AUTO COMPLETE
@@ -19,6 +17,9 @@ export default function()
         select: function(event, ui) { 
             $('#curriculum-search').val(ui.item.label);
             $('#curriculum-search').attr('data-id', ui.item.value);
+            let totalECTS = parseInt($("#totalECTS").html());
+            let totalHours = parseInt($("#totalHours").html());
+            
 
             let specificCurriculum = curriculum.loadSpecificCurriculum(parseInt(ui.item.value));
             totalECTS += specificCurriculum.ects;
@@ -32,7 +33,7 @@ export default function()
                 <td class="text-left">${specificCurriculum.vjezbe}</td>
                 <td class="text-left">${specificCurriculum.tip}</td>
                 <td class="text-left">
-                <button class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease">
+                <button class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 removeCurriculum" type="button" style="transition: all .15s ease">
                 Obriši
                 </button>
               </td>
@@ -55,5 +56,9 @@ export default function()
             }
         }
     });
+    //--//
+
+    //MAKNI KOLEGIJ
+    $(document).on("click", ".removeCurriculum", (e) => curriculum.removeCurriculumClick(e.target));
     //--//
 }

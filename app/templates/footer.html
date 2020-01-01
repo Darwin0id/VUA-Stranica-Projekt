@@ -1,4 +1,53 @@
 <!-- PODNOŽJE -->
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+      <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+        <header class="modal__header">
+          <h2 class="modal__title text-algebra:color" id="modal-1-title">
+            <i class="fas fa-envelope text-algebra:color"></i> Kontakt
+          </h2>
+          <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+        </header>
+        <main class="modal__content" id="modal-1-content">
+			<p>
+                Nemojte se ustručavati poslati na poruku. Veselimo se Vašim pitanjima.
+              </p>
+			<div class="relative w-full mb-3 mt-8">
+				<label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="puno-ime">Puno ime:</label>
+				<input id="puno-ime" type="text" class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="npr. Pero Perić" style="transition: all 0.15s ease 0s;" required>
+			</div>
+			<div class="relative w-full mb-3 mt-2">
+				<label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="email">E-mail:</label>
+				<input id="email" type="email" class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="npr. pero.peric@localhost.hr" style="transition: all 0.15s ease 0s;" required>
+			</div>
+			<div class="relative w-full mb-3 mt-2">
+				<label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="vaznost-poruka">Važnost poruka:</label>
+				<select id="vaznost-poruka" style="transition: all 0.15s ease 0s;" class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full">
+					<option value="Visoka">Visoka</option>
+					<option value="Niska">Niska</option>
+				</select>
+			</div>
+			<div class="relative w-full mb-3 mt-2">
+				<label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="vasa-poruka">Vaša poruka:</label>
+				<textarea id="vasa-poruka" type="text" class="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full" placeholder="npr. Vaša poruka" style="transition: all 0.15s ease 0s;" required></textarea>
+			</div>
+			<div class="relative w-full mb-3 mt-2">
+				<label class="inline-flex items-center cursor-pointer">
+					<input id="primaj-newsletter" type="checkbox" class="form-checkbox text-gray-800 ml-1 w-5 h-5" style="transition: all 0.15s ease 0s;">
+					<span class="ml-2 text-sm font-semibold text-gray-700">Primaj newsletter:</span>
+				</label>
+			</div>
+        </main>
+        <footer class="modal__footer">
+          <button id="create_contact" class="modal__btn modal__btn-primary">Pošalji</button>
+          <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Odustani</button>
+        </footer>
+      </div>
+    </div>
+</div>
+<!-- // -->
+  
+<!-- PODNOŽJE -->
 <footer class="relative bg-gray-300 pt-8 pb-6">
 	<!-- DODATAK -->
 	<div class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20" style="height: 80px; transform: translateZ(0px);">
