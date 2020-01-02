@@ -29,3 +29,10 @@ Projektni zadatak nalaže da se kreira internetska stranica koja prezentira Viso
 - [X] Dodati sekcije: naše vrijednosti, povijest, algebra grupa, kako do nas
 - [X] Dodati google maps
 
+### NOVOSTI STRANICA
+- [X] Napraviti JSON sa novostima
+- [X] Dohvaćanje novosti iz JSON-a
+
+### NOVOST STRANICA
+- [X] Proslijediti na frontend naslov, tekst, datum, slika, videa
+

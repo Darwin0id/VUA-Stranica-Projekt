@@ -2,7 +2,6 @@
 import RenderController from './controller/render.controller';
 import NewsController from './controller/news.controller';
 import NotFoundController from './controller/pagenotfound.controller';
-import MicroModal from 'micromodal';
 
 //VIEW
 import FixedHeader from './view/header';
@@ -11,7 +10,7 @@ import Home from './view/home';
 import {About, RemoveSubMenu} from './view/about';
 import News from './view/news';
 import Curriculum from './view/curriculum';
-import './view/contact';
+import Contact from './view/contact';
 
 //REQUIRE
 let Navigo = require('navigo');
@@ -42,7 +41,7 @@ $(function(){
     router.on('/news',function () {new RenderController('./templates/news.html', 'app').HTML(News)});
     router.on('/news/:id', function (params) {(arrayOfNews.includes(parseInt(params.id))) ? new RenderController('./templates/news-section.html', 'app').NEWS(parseInt(params.id)) : NotFoundController()});
     router.on('/curriculum',function () {new RenderController('./templates/curriculum.html', 'app').HTML(Curriculum)});
-    $(document).on('click', '#contact-form', () => { MicroModal.show('modal-1');});
+    $(document).on('click', '#contact-form', () => { Contact("modal-1"); });
 
     //DEFAULT RUTA
     router.on(() => { new RenderController('./templates/home.html', 'app').HTML(Home); });

@@ -2878,6 +2878,10 @@ td.text-right {
   top: 76%;
 }
 
+.swal2-container {
+  z-index: 106000 !important;
+}
+
 /* MOBILE */
 @media only screen and (max-width: 768px) {
   .text-5xl {

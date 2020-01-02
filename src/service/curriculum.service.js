@@ -1,23 +1,27 @@
+//SERVICE ZA KOLEGIJ
 export default class CurriculumService {
+
+    //DOHVATI SVE KOLEGIJE
     getAllCurriculums() {
         let response = $.ajax({
             type: "GET",
-            dataType: "json",
+            dataType: "json", //VRATI MI U FORMATU: JSON
             async: false,
-            url: "http://www.fulek.com/VUA/SUPIT/GetNastavniPlan"
+            url: "http://www.fulek.com/VUA/SUPIT/GetNastavniPlan" //API URL
         });
 
-        return response.responseJSON;
+        return response.responseJSON; //VRATI MI OBIČAN ARRAY
     }
 
+    //DOHVATI SPECIFIČAN KOLEGIJ
     getCurriculum(id) {
         let response = $.ajax({
             type: "GET",
-            dataType: "json",
+            dataType: "json", //VRATI MI U FORMATU: JSON
             async: false,
-            url: "http://www.fulek.com/VUA/supit/GetKolegij/"+id
+            url: "http://www.fulek.com/VUA/supit/GetKolegij/"+id //API URL
         });
 
-        return response.responseJSON;
+        return response.responseJSON; //VRATI MI OBIČAN ARRAY
     }
 }

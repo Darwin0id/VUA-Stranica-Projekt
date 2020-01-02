@@ -8765,7 +8765,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //IMPORT
+
 
 var _contact = require('../service/contact.service');
 
@@ -8775,17 +8776,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+//KONTROLER KONTAKTA
 var ContactController = function () {
+
+    //KONSTRUKTOR
     function ContactController() {
         _classCallCheck(this, ContactController);
 
-        this.newSvc = new _contact2.default();
+        this.newSvc = new _contact2.default(); //NAPRAVI KONTAKT PREMA API
     }
+
+    //KADA SE DOGODI KLIK NA FRONTENDU
+
 
     _createClass(ContactController, [{
         key: 'sendMailClick',
         value: function sendMailClick(fullName, email, urgent, newsletter, message) {
-            return this.newSvc.sendMail(fullName, email, urgent, newsletter, message);
+            return this.newSvc.sendMail(fullName, email, urgent, newsletter, message); //VRATI POVRATNU PORUKU
         }
     }]);
 
@@ -8801,7 +8808,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //IMPORT
+
 
 var _curriculum = require("../service/curriculum.service");
 
@@ -8811,36 +8819,49 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+//KONTROLER KOLEGIJA
 var CurriculumController = function () {
+
+    //KONSTRUKTOR
     function CurriculumController() {
         _classCallCheck(this, CurriculumController);
 
-        this.newSvc = new _curriculum2.default();
+        this.newSvc = new _curriculum2.default(); //DOHVATI KOLEGIJE
     }
+
+    //DOHVATI SVE KOLEGIJE BEZ FILTRIRANJA
+
 
     _createClass(CurriculumController, [{
         key: "loadAllCurriculums",
         value: function loadAllCurriculums() {
             return this.newSvc.getAllCurriculums();
         }
+
+        //DOHVATI SPECIFIČAN KOLEGIJ
+
     }, {
         key: "loadSpecificCurriculum",
         value: function loadSpecificCurriculum(id) {
             return this.newSvc.getCurriculum(id);
         }
+
+        //MAKNI KOLEGIJ SA TABLICE
+
     }, {
         key: "removeCurriculumClick",
         value: function removeCurriculumClick(element) {
-            var currentECTS = parseInt($("#totalECTS").html());
-            var currentHours = parseInt($("#totalHours").html());
+            var currentECTS = parseInt($("#totalECTS").html()); //TRENUTNI ECTS BODOVI
+            var currentHours = parseInt($("#totalHours").html()); //TRENUTNI SATI
 
-            var elementTr = $(element).parent().parent()[0];
-            var gECTS = parseInt(elementTr.cells[1].innerText);
-            var gHours = parseInt(elementTr.cells[2].innerText);
-            $(elementTr).remove();
+            var elementTr = $(element).parent().parent()[0]; //UZMI TR OD THIS ELEMENTA
+            var gECTS = parseInt(elementTr.cells[1].innerText); //OD UZETOG TR-A UZMI ECTS BODOVE TE IH PRETVORI U INT
+            var gHours = parseInt(elementTr.cells[2].innerText); //OD UZETOG TR-A UZMI SATE TE IH PRETVORI U INT
 
-            $("#totalECTS").html(currentECTS - gECTS);
-            $("#totalHours").html(currentHours - gHours);
+            $(elementTr).remove(); //IZBRIŠI REDAK U TABLICI
+
+            $("#totalECTS").html(currentECTS - gECTS); //ZAPIŠI ECTS-OVE NAKON ODUZIMANJA IBRISANOG TR-A
+            $("#totalHours").html(currentHours - gHours); //ZAPIŠI SATE NAKON ODUZIMANJA IBRISANOG TR-A
         }
     }]);
 
@@ -8884,24 +8905,32 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+//KLASA KOJA UPRAVLJA NAVBAROM
 var NavbarController = function () {
+    //KONSTRUKTOR
     function NavbarController(elementID) {
         _classCallCheck(this, NavbarController);
 
-        this.elementID = elementID;
+        this.elementID = elementID; //DOHVATI NAVBAR POMOĆU ID-A
     }
+
+    //OMOGUĆI TOGGLE NAVBARU
+
 
     _createClass(NavbarController, [{
         key: "toggleNavbarClick",
         value: function toggleNavbarClick() {
-            $("#" + this.elementID).toggle("hidden");
+            $("#" + this.elementID).toggle("hidden"); //UZMI ELEMENT KROZ KONSTRUKTOR TE MU TOGLAJ KLASU
         }
+
+        //POSTAVI AKTIVNU STRANICU
+
     }, {
         key: "setActivePage",
         value: function setActivePage(page) {
-            //AKTIVAN DIO STRANICE
-            $(".navbar-link").removeClass('text-pink:color');
-            $('a[href$="' + page + '"]').addClass('text-pink:color');
+            //AKTIVAN DIO STRANICE 
+            $(".navbar-link").removeClass('text-pink:color'); //MAKNI SVE AKTIVNE STRANICE
+            $('a[href$="' + page + '"]').addClass('text-pink:color'); //DODJELI KLASU TRENUTNO AKTIVNOJ STRANICI
         }
     }]);
 
@@ -8917,7 +8946,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //IMPORT
+
 
 var _news = require('../service/news.service');
 
@@ -8927,36 +8957,50 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+//KONTROLER NOVISTU
 var NewsController = function () {
+    //KONSTRUKTOR
     function NewsController() {
         _classCallCheck(this, NewsController);
 
-        this.newSvc = new _news2.default();
+        this.newSvc = new _news2.default(); //DOHVATI NOVOSTI
     }
+
+    //UČITAJ SVE NOVOSTI PO ID-U
+
 
     _createClass(NewsController, [{
         key: 'loadArray',
         value: function loadArray() {
             return this.newSvc.getAllNews().map(function (news) {
                 return news.id;
-            });
+            }); //RADIMO OBRADU KROZ: MAPU
         }
+
+        //UČITAJ SVE NOVOSTI ALI ŠTO JEDNOSTAVNIJE MOŽEŠ
+
     }, {
         key: 'loadAllNewsBasic',
         value: function loadAllNewsBasic() {
             return this.newSvc.getAllNews().map(function (news) {
                 return { id: news.id, naslov: news.naslov };
-            });
+            }); //RADIMO OBRADU KROZ: MAPU
         }
+
+        //UČITAJ SVE NOVOSTI
+
     }, {
         key: 'loadAllNews',
         value: function loadAllNews() {
-            return this.newSvc.getAllNews();
+            return this.newSvc.getAllNews(); //DOHVATI SVE NOVOSTI
         }
+
+        //UČITAJ TRAŽENU VRIJEDNOST
+
     }, {
         key: 'loadSpecificNews',
         value: function loadSpecificNews(id) {
-            return this.newSvc.getNews(id);
+            return this.newSvc.getNews(id); //DOHVATI SPEFICIČNU NOVOST
         }
     }]);
 
@@ -9004,7 +9048,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function () {
-    new _render2.default('../templates/error.html', 'app').HTML();
+    new _render2.default('../templates/error.html', 'app').HTML(); //NAPRAVI RENDER PREDZADANI TEMPLATE
 };
 
 var _render = require('../controller/render.controller');
@@ -9020,7 +9064,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //IMPORT
+
 
 var _news = require('../controller/news.controller');
 
@@ -9030,47 +9075,67 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var RenderService = function () {
-    function RenderService(url, id) {
-        _classCallCheck(this, RenderService);
+//KLASA ZA RENDER CONTROLLER
+var RenderController = function () {
 
-        this.url = url;
-        this.id = id;
+    //KONSTRUKTOR DOHVAĆA KOJI TEMPLATE RENDERA TE NA KOJI ID APPENDA TAJ RENDER
+    function RenderController(url, id) {
+        _classCallCheck(this, RenderController);
+
+        this.url = url; //PUTANJA
+        this.id = id; //ID
     }
 
-    _createClass(RenderService, [{
+    //RENDER ZA HTML
+
+
+    _createClass(RenderController, [{
         key: 'HTML',
         value: function HTML() {
             var fCallback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-            $('#' + this.id).load(this.url, fCallback);
+            $('#' + this.id).load(this.url, fCallback); //RENDERAJ I POZOVI CALLBACK
         }
+
+        //RENDER NOVOSTI
+
     }, {
         key: 'NEWS',
         value: function NEWS(id) {
-            var news = new _news2.default().loadSpecificNews(id);
+            var news = new _news2.default().loadSpecificNews(id); //DOHVATI SPECIFIČNU NOVOST
 
+            //LODAJ HTML NA SPECIFIČAN DIO STRANICE
             $('#' + this.id).load(this.url, function () {
-                $("#newsBgCover").css({ "background-image": "url(resources/images/novosti/" + news.slika + ")" });
-                $("#news-title").html(news.naslov);
-                $("#news-date").html(news.datum);
-                $("#news-text").html(news.tekst);
 
+                //DODJELI INFORMACIJE NOVOSTI
+                //--//
+                $("#newsBgCover").css({ "background-image": "url(resources/images/novosti/" + news.slika + ")" }); //BG SLIKA
+                $("#news-title").html(news.naslov); // NASLOV
+                $("#news-date").html(news.datum); // DATUM
+                $("#news-text").html(news.tekst); // TEKST
+                //--//
+
+                //PROĐI KROZ SVE SLIKE AKO POSTOJE I DODJELI IH
+                //--//
                 news.slike.forEach(function (element) {
-                    $("#appendImages").append('<div class="w-full lg:w-4/12 px-4">\n                <a href="resources/images/novosti/' + element + '" data-fancybox="images">\n                    <img src="resources/images/novosti/' + element + '" />\n                </a>\n            </div>');
+                    $("#appendImages").append('<div class="w-full lg:w-4/12 px-4">\n                <a href="resources/images/novosti/' + element + '" data-fancybox="images">\n                <img src="resources/images/novosti/' + element + '" />\n                </a>\n                </div>');
                 });
+                //--//
 
+                //PROĐI KROZ SVE VIDEO ZAPISE AKO POSTOJE I DODJELI IH
+                //--//
                 news.video.forEach(function (element) {
                     $("#appendImages").append('<div class="w-full lg:w-4/12 px-4">\n                <video style="width: 100%; height: 100%;" controls>\n                    <source src="resources/video/' + element + '" type="video/mp4">\n                </video>\n            </div>');
                 });
+                //--//
             });
         }
     }]);
 
-    return RenderService;
+    return RenderController;
 }();
 
-exports.default = RenderService;
+exports.default = RenderController;
 
 },{"../controller/news.controller":13}],17:[function(require,module,exports){
 'use strict';
@@ -9086,10 +9151,6 @@ var _news2 = _interopRequireDefault(_news);
 var _pagenotfound = require('./controller/pagenotfound.controller');
 
 var _pagenotfound2 = _interopRequireDefault(_pagenotfound);
-
-var _micromodal = require('micromodal');
-
-var _micromodal2 = _interopRequireDefault(_micromodal);
 
 var _header = require('./view/header');
 
@@ -9113,18 +9174,20 @@ var _curriculum = require('./view/curriculum');
 
 var _curriculum2 = _interopRequireDefault(_curriculum);
 
-require('./view/contact');
+var _contact = require('./view/contact');
+
+var _contact2 = _interopRequireDefault(_contact);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //REQUIRE
+//IMPORT
 var Navigo = require('navigo');
 
 //NEWS
 
 
 //VIEW
-//IMPORT
 var arrayOfNews = new _news2.default().loadArray();
 
 //JQUERY ON LOAD
@@ -9163,7 +9226,7 @@ $(function () {
         new _render2.default('./templates/curriculum.html', 'app').HTML(_curriculum2.default);
     });
     $(document).on('click', '#contact-form', function () {
-        _micromodal2.default.show('modal-1');
+        (0, _contact2.default)("modal-1");
     });
 
     //DEFAULT RUTA
@@ -9181,14 +9244,15 @@ $(function () {
     /* +++++++++ ++++++++++ +++++++++ */
 });
 
-},{"./controller/news.controller":13,"./controller/pagenotfound.controller":15,"./controller/render.controller":16,"./view/about":21,"./view/contact":22,"./view/curriculum":23,"./view/footer":24,"./view/header":25,"./view/home":26,"./view/news":27,"micromodal":1,"navigo":2}],18:[function(require,module,exports){
+},{"./controller/news.controller":13,"./controller/pagenotfound.controller":15,"./controller/render.controller":16,"./view/about":21,"./view/contact":22,"./view/curriculum":23,"./view/footer":24,"./view/header":25,"./view/home":26,"./view/news":27,"navigo":2}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //IMPORT
+
 
 var _sweetalert = require('sweetalert2');
 
@@ -9202,6 +9266,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+//SERVICE ZA KONTAKT
 var ContactService = function () {
     function ContactService() {
         _classCallCheck(this, ContactService);
@@ -9209,14 +9274,19 @@ var ContactService = function () {
 
     _createClass(ContactService, [{
         key: 'sendMail',
+
+
+        //POŠALJI MAIL
         value: function sendMail(fullName, email, urgent, newsletter, message) {
             $.ajax({
                 type: 'POST',
-                url: 'http://www.fulek.com/VUA/SUPIT/ContactUs',
+                url: 'http://www.fulek.com/VUA/SUPIT/ContactUs', //API ZA SLANJE MAILA
                 data: { name: fullName, email: email, importance: urgent, newsletter: newsletter, message: message },
                 async: true,
                 success: function success(data) {
-                    _micromodal2.default.close();
+                    _micromodal2.default.close(); //ZATVORI MODAL
+
+                    //PRIKAŽI OBAVIJEST KORISNIKU
                     _sweetalert2.default.fire('Uspijeh!', 'Poslali ste poruku uspješno.', 'success');
                 }
             });
@@ -9239,6 +9309,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+//SERVICE ZA KOLEGIJ
 var CurriculumService = function () {
     function CurriculumService() {
         _classCallCheck(this, CurriculumService);
@@ -9246,27 +9317,33 @@ var CurriculumService = function () {
 
     _createClass(CurriculumService, [{
         key: "getAllCurriculums",
+
+
+        //DOHVATI SVE KOLEGIJE
         value: function getAllCurriculums() {
             var response = $.ajax({
                 type: "GET",
-                dataType: "json",
+                dataType: "json", //VRATI MI U FORMATU: JSON
                 async: false,
-                url: "http://www.fulek.com/VUA/SUPIT/GetNastavniPlan"
+                url: "http://www.fulek.com/VUA/SUPIT/GetNastavniPlan" //API URL
             });
 
-            return response.responseJSON;
+            return response.responseJSON; //VRATI MI OBIČAN ARRAY
         }
+
+        //DOHVATI SPECIFIČAN KOLEGIJ
+
     }, {
         key: "getCurriculum",
         value: function getCurriculum(id) {
             var response = $.ajax({
                 type: "GET",
-                dataType: "json",
+                dataType: "json", //VRATI MI U FORMATU: JSON
                 async: false,
-                url: "http://www.fulek.com/VUA/supit/GetKolegij/" + id
+                url: "http://www.fulek.com/VUA/supit/GetKolegij/" + id //API URL
             });
 
-            return response.responseJSON;
+            return response.responseJSON; //VRATI MI OBIČAN ARRAY
         }
     }]);
 
@@ -9286,6 +9363,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+//SERVICE ZA NOVOSTI
 var NewsService = function () {
     function NewsService() {
         _classCallCheck(this, NewsService);
@@ -9293,27 +9371,33 @@ var NewsService = function () {
 
     _createClass(NewsService, [{
         key: "getAllNews",
+
+
+        //DOHVATI SVE NOVOSTI
         value: function getAllNews() {
             var response = $.ajax({
                 type: "GET",
-                dataType: "json",
+                dataType: "json", //VRATI MI U FORMATU: JSON
                 async: false,
-                url: "./resources/data/news.json"
+                url: "./resources/data/news.json" //API URL
             });
 
-            return response.responseJSON;
+            return response.responseJSON; //VRATI MI OBIČAN ARRAY
         }
+
+        //DOHVATI SPECIFIČNO NOVOST
+
     }, {
         key: "getNews",
         value: function getNews(id) {
             var response = $.ajax({
                 type: "GET",
-                dataType: "json",
+                dataType: "json", //VRATI MI U FORMATU: JSON
                 async: false,
-                url: "./resources/data/news.json"
+                url: "./resources/data/news.json" //API URL
             });
 
-            return response.responseJSON[id - 1];
+            return response.responseJSON[id - 1]; //VRATI MI OBIČAN ARRAY
         }
     }]);
 
@@ -9393,9 +9477,53 @@ function RemoveSubMenu() {
 },{"../controller/inviewport.controller":11,"../controller/onscrollanimation.controller":14,"./sub-menu":28}],22:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function (element) {
+    //MODAL
+    _micromodal2.default.init({
+        openTrigger: 'data-custom-open',
+        closeTrigger: null,
+        disableScroll: true,
+        disableFocus: false,
+        awaitCloseAnimation: false
+    });
+
+    //KONTAKT
+    var makeContact = new _contact2.default();
+
+    //OTVORI MODAL
+    _micromodal2.default.show(element);
+
+    $(document).on('click', '#create_contact', function () {
+
+        //PRIKUPLJENI PODACI
+        var firstName = $("#puno-ime").val();
+        var email = $("#email").val();
+        var urgent = $("#vaznost-poruka").val();
+        var newsletter = $("#primaj-newsletter").val();
+        var message = $("#vasa-poruka").val();
+
+        //POŠALJI VRIJEDNOSTI
+        if (firstName == '' || email == '' || urgent == '' || message == '') {
+            //PRIKAŽI OBAVIJEST KORISNIKU
+            _sweetalert2.default.fire('Pogreška!', 'Provjerite još jednom sva polja.', 'error');
+        } else {
+            //POŠALJI VRIJEDNOSTI        
+            makeContact.sendMailClick(firstName, email, urgent, newsletter, message);
+        }
+    });
+};
+
 var _micromodal = require('micromodal');
 
 var _micromodal2 = _interopRequireDefault(_micromodal);
+
+var _sweetalert = require('sweetalert2');
+
+var _sweetalert2 = _interopRequireDefault(_sweetalert);
 
 var _contact = require('../controller/contact.controller');
 
@@ -9403,31 +9531,7 @@ var _contact2 = _interopRequireDefault(_contact);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_micromodal2.default.init({
-    onShow: function onShow(modal) {
-        return console.info(modal.id + ' is shown');
-    },
-    onClose: function onClose(modal) {
-        return console.info(modal.id + ' is hidden');
-    },
-    openTrigger: 'data-custom-open',
-    closeTrigger: 'data-custom-close',
-    disableScroll: true,
-    disableFocus: false,
-    awaitCloseAnimation: false
-});
-
-var makeContact = new _contact2.default();
-var firstName = $("#puno-ime").val();
-var email = $("#email").val();
-var urgent = $("#vaznost-poruka").val();
-var newsletter = $("#primaj-newsletter").val();
-var message = $("#vasa-poruka").val();
-$(document).on('click', '#create_contact', function () {
-    makeContact.sendMailClick(firstName, email, urgent, newsletter, message);
-});
-
-},{"../controller/contact.controller":9,"micromodal":1}],23:[function(require,module,exports){
+},{"../controller/contact.controller":9,"micromodal":1,"sweetalert2":5}],23:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
