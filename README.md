@@ -11,18 +11,17 @@ Projektni zadatak nalaže da se kreira internetska stranica koja prezentira Viso
 # Instalacija
 
 ## Zahtjevi sustava
-`
-  "browserify": "^16.2.2",
-  "jquery": "^3.4.1",
-  "navigo": "^7.1.2",
-  "sweetalert2": "^9.5.4",
-  "tippy.js": "^5.1.2",
-  "typewriter-effect": "^2.12.2",
-  "watchify": "^3.11.1",
-  "babel-core": "^6.26.3",
-  "babel-preset-es2015": "^6.24.1",
-  "babelify": "^8.0.0",
-  "micromodal": "^0.4.2"
+⋅⋅* `"browserify": "^16.2.2",`
+⋅⋅* `"jquery": "^3.4.1",`
+⋅⋅* `"navigo": "^7.1.2",`
+⋅⋅* `"sweetalert2": "^9.5.4",`
+⋅⋅* `"tippy.js": "^5.1.2",`
+⋅⋅* `"typewriter-effect": "^2.12.2",`
+⋅⋅* `"watchify": "^3.11.1",`
+⋅⋅* `"babel-core": "^6.26.3",`
+⋅⋅* ` "babel-preset-es2015": "^6.24.1",`
+⋅⋅* `"babelify": "^8.0.0",`
+⋅⋅* `"micromodal": "^0.4.2"`
 `
 
 ## Pokretanje projekta
