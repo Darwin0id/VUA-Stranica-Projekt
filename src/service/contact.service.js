@@ -21,6 +21,10 @@ export default class ContactService {
                     'Poslali ste poruku uspješno.',
                     'success'
                   )
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
             }
         });
     }

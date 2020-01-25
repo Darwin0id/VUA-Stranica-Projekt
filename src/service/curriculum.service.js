@@ -7,7 +7,11 @@ export default class CurriculumService {
             type: "GET",
             dataType: "json", //VRATI MI U FORMATU: JSON
             async: false,
-            url: "http://www.fulek.com/VUA/SUPIT/GetNastavniPlan" //API URL
+            url: "http://www.fulek.com/VUA/SUPIT/GetNastavniPlan", //API URL
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
         });
 
         return response.responseJSON; //VRATI MI OBIČAN ARRAY
@@ -19,7 +23,11 @@ export default class CurriculumService {
             type: "GET",
             dataType: "json", //VRATI MI U FORMATU: JSON
             async: false,
-            url: "http://www.fulek.com/VUA/supit/GetKolegij/"+id //API URL
+            url: "http://www.fulek.com/VUA/supit/GetKolegij/"+id, //API URL
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
         });
 
         return response.responseJSON; //VRATI MI OBIČAN ARRAY

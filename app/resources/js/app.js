@@ -9288,6 +9288,10 @@ var ContactService = function () {
 
                     //PRIKAŽI OBAVIJEST KORISNIKU
                     _sweetalert2.default.fire('Uspijeh!', 'Poslali ste poruku uspješno.', 'success');
+                },
+                error: function error(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
                 }
             });
         }
@@ -9325,7 +9329,11 @@ var CurriculumService = function () {
                 type: "GET",
                 dataType: "json", //VRATI MI U FORMATU: JSON
                 async: false,
-                url: "http://www.fulek.com/VUA/SUPIT/GetNastavniPlan" //API URL
+                url: "http://www.fulek.com/VUA/SUPIT/GetNastavniPlan", //API URL
+                error: function error(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
             });
 
             return response.responseJSON; //VRATI MI OBIČAN ARRAY
@@ -9340,7 +9348,11 @@ var CurriculumService = function () {
                 type: "GET",
                 dataType: "json", //VRATI MI U FORMATU: JSON
                 async: false,
-                url: "http://www.fulek.com/VUA/supit/GetKolegij/" + id //API URL
+                url: "http://www.fulek.com/VUA/supit/GetKolegij/" + id, //API URL
+                error: function error(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
             });
 
             return response.responseJSON; //VRATI MI OBIČAN ARRAY
@@ -9379,7 +9391,11 @@ var NewsService = function () {
                 type: "GET",
                 dataType: "json", //VRATI MI U FORMATU: JSON
                 async: false,
-                url: "./resources/data/news.json" //API URL
+                url: "./resources/data/news.json", //API URL
+                error: function error(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
             });
 
             return response.responseJSON; //VRATI MI OBIČAN ARRAY
@@ -9394,7 +9410,11 @@ var NewsService = function () {
                 type: "GET",
                 dataType: "json", //VRATI MI U FORMATU: JSON
                 async: false,
-                url: "./resources/data/news.json" //API URL
+                url: "./resources/data/news.json", //API URL
+                error: function error(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
             });
 
             return response.responseJSON[id - 1]; //VRATI MI OBIČAN ARRAY
@@ -9497,6 +9517,7 @@ exports.default = function (element) {
     //OTVORI MODAL
     _micromodal2.default.show(element);
 
+    //KLIKNI NA POŠALJI
     $(document).on('click', '#create_contact', function () {
 
         //PRIKUPLJENI PODACI
@@ -9507,12 +9528,17 @@ exports.default = function (element) {
         var message = $("#vasa-poruka").val();
 
         //POŠALJI VRIJEDNOSTI
-        if (firstName == '' || email == '' || urgent == '' || message == '') {
+        if (firstName == '' || email == '' || urgent == '' || message == '') //AKO SU VRIJEDNOSTI PRAZNE PRIKAŽI POGREŠKU
+            {
+                //PRIKAŽI OBAVIJEST KORISNIKU
+                _sweetalert2.default.fire('Pogreška!', 'Provjerite još jednom sva polja.', 'error');
+            } else if (!isValidEmailAddress(email)) {
             //PRIKAŽI OBAVIJEST KORISNIKU
-            _sweetalert2.default.fire('Pogreška!', 'Provjerite još jednom sva polja.', 'error');
+            _sweetalert2.default.fire('Pogreška!', 'Navedena adresa za elektronsku poštu je upisana u pogrešnom formatu.', 'error');
         } else {
             //POŠALJI VRIJEDNOSTI        
             makeContact.sendMailClick(firstName, email, urgent, newsletter, message);
+            $("#vasa-poruka").val('');
         }
     });
 };
@@ -9530,6 +9556,12 @@ var _contact = require('../controller/contact.controller');
 var _contact2 = _interopRequireDefault(_contact);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//IMPORT
+function isValidEmailAddress(emailAddress) {
+    var pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i);
+    return pattern.test(emailAddress);
+};
 
 },{"../controller/contact.controller":9,"micromodal":1,"sweetalert2":5}],23:[function(require,module,exports){
 "use strict";
